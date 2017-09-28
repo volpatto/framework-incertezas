@@ -1,0 +1,13 @@
+
+  ********* Begin fitting *********
+
+  Iteration 1
+  Iteration 2
+  Iteration 3
+
+  fitPar =     3.52051E-04  relative error =     3.11290E-03
+
+  Numerical integration method: Runge-Kutta 4
+
+  ********* End fitting *********
+
