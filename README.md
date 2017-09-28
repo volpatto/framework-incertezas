@@ -6,5 +6,5 @@ de parâmetros de um circuito RC.
 O programa tem fins apenas didáticos.
 
 ## Autor de contato
-Oi
+
 Diego T. Volpatto -- volpatto@lncc.br
