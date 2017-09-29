@@ -1,5 +1,6 @@
+solution*
+fuzzy*
 *.exe
-*.dat
 *.dat.swp
 *.dat~
 *.mod
