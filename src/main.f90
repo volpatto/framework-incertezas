@@ -2,7 +2,7 @@ program main
 
 use utilities
 use uncertainty
-use asa183
+!use asa183
 use tIntegration
 
 implicit none
@@ -19,12 +19,23 @@ character(len=50) :: nameData='data.dat', nameR= 'R', nameC='C'
 real*8, allocatable :: dataSet(:,:), sol(:)
 integer :: i
 real*8 :: ran
+real*4 :: rteste
 real*8, allocatable :: rteste1(:), rteste2(:)
 real*8 :: xteste(2), vecWCS(2,3)
 
 !Rminus = (R-measurementImpR)*(nominalImpR) + measurementImpR
 !Rplus = (R+measurementImpR)*(nominalImpR) + measurementImpR
 !write(*,'(2x,4(es15.5))') (R-measurementImpR), (R+measurementImpR), Rminus, Rplus; stop
+
+!Rminus = R*nominalImpR
+!Rplus = R*nominalImpR
+!call rngArray(R-Rminus, R+Rplus, rteste1, 20)
+!write(*,*)
+!call rngArray(R-Rminus, R+Rplus, rteste2, 20)
+!print*, rteste1
+!print*, "*********************"
+!print*, rteste2
+!stop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CALIBRACAO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -62,6 +73,13 @@ call writeTriangular(bleftC,tcenterC,brightC,inpts=201,iname=nameC); !stop
 call fuzzyTwoParameters(vecWCS,method=2,parGrid=10)
 !xteste = findAlphaTri(0.9d0,bleftR,tcenterR,brightR)
 !print*, xteste(1), xteste(2); !stop
+!stop
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!! RANDOM GENERATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+call randomUniformTwoParameters(vecWCS,method=2,parGrid=199)
 stop
 
 !call writeTrapezoidal(bleftR,tleftR,trightR,brightR,inpts=201,iname=nameR); !stop

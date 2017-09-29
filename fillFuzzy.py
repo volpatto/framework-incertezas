@@ -36,6 +36,7 @@ clb.ax.set_title(r'$\alpha$')
 # show the figure
 plt.xlabel(r't (segundos)')
 plt.ylabel(r'$V$ (volts)')
+plt.grid(True)
 plt.savefig('plotFillFuzzy.eps')
 plt.show()
 

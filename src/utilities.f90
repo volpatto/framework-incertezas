@@ -67,14 +67,15 @@ module utilities
     !! @param maxRange      Valor maximo que podera ser gerado
     !! @param rArray        Vetor com entradas pseudoaleatorias
     !! @param idimArray     (Opcional) Tamanho do vetor pseudoaleatorio
-    subroutine rngArray(minRange, maxRange, rArray, idimArray)
+    function rngArray(minRange, maxRange, idimArray)
 
         use asa183, only: r8_uni
 
         implicit none
 
         real*8, intent(in) :: minRange, maxRange
-        real*8, allocatable, intent(inout) :: rArray(:)
+        real*8, allocatable :: rngArray(:)
+        !real*8, allocatable, intent(inout) :: rArray(:)
         integer, intent(in), optional :: idimArray
         integer :: dimArray = 10, i
         integer :: rseed1, rseed2, n
@@ -83,7 +84,8 @@ module utilities
 
         if (present(idimArray)) dimArray = idimArray
 
-        allocate(rArray(dimArray)); rArray = 0.d0
+        !allocate(rArray(dimArray)); rArray = 0.d0
+        allocate(rngArray(dimArray)); rngArray = 0.d0
 
         call random_seed(size = n)
         allocate(seed(n))
@@ -91,11 +93,11 @@ module utilities
         rseed1 = irand(); rseed2 = irand()
 
         do i=1,dimArray
-            rArray(i) = r8_uni(rseed1, rseed2)*(maxRange-minRange) + minRange
-            print*, rArray(i)
+            rngArray(i) = r8_uni(rseed1, rseed2)*(maxRange-minRange) + minRange
+            print*, rngArray(i)
         enddo
 
-    endsubroutine
+    endfunction
 
     function linspace(a,b,inpts)
 

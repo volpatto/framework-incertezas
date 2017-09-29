@@ -116,16 +116,6 @@ contains
         if (present(parGrid)) parGridDefault = parGrid
         if (present(method)) methodDefault = method
 
-        ! Opening solution output file
-        ! Making an id char variable
-        !id = 99332947
-        !write(filename, '(a)') "wcs"
-        ! Concatenate strings filename, char_id and ".dat"
-        !fname = trim(filename)//".dat"
-        ! Opening file with unit as id and file name as attributed in fname
-        !open(unit=id,file=fname)
-
-        !gridSteps = (parErrorPlus+parErrorMinus)/parGridDefault
         gridNodes = parGridDefault + 1
 
         allocate(gridWCS(2,gridNodes))
@@ -138,8 +128,6 @@ contains
                 call solverRK4(sol, t0, tf, y0, gridWCS(1,i), gridWCS(2,j), passos,naturalNumbering,irefresh=1)
             enddo
         enddo
-
-        !close(id)
 
     endsubroutine
 
@@ -174,7 +162,6 @@ contains
         ! Opening file with unit as id and file name as attributed in fname
         open(unit=id,file=fname)
 
-        !gridSteps = (parErrorPlus+parErrorMinus)/parGridDefault
         gridNodes = parGridDefault + 1
         allocate(a_cuts(gridNodes))
         allocate(R_cuts(gridNodes,2))
@@ -212,6 +199,39 @@ contains
 
         deallocate(a_cuts); deallocate(R_cuts); deallocate(C_cuts)
         close(id)
+
+    endsubroutine
+
+    !> Gera dos parâmetros de forma aleatória em distribuição uniforme resultados de forma a
+    !! quantificar as incertezas. 
+    !! @param parGrid       (Optional) [in] Número de intervalos para criação do grid de varredura
+    !! @param imethod       (Optional) [in] Método de integração numérica
+    subroutine randomUniformTwoParameters(parVal,parGrid,method)
+
+        use utilities, only: linspace, rngArray
+        use tIntegration
+        implicit none
+
+        real*8, intent(in) :: parVal(2,3)
+        integer, intent(in), optional :: parGrid, method
+        real*8, allocatable :: gridUniform1(:), gridUniform2(:)
+        integer :: parGridDefault = 6, gridNodes, methodDefault = 1
+        integer :: i, id, passos = 100
+        character(len=50) :: filename, fname, char_id
+        real*8, allocatable :: sol(:)
+        real*8 :: t0 = 0.d0, tf = 406.d0, y0 = 13.18d0
+
+        if (present(parGrid)) parGridDefault = parGrid
+        if (present(method)) methodDefault = method
+
+        gridNodes = parGridDefault + 1
+
+        gridUniform1 = rngArray(parVal(1,1)-parVal(1,2),parVal(1,1)+parVal(1,3),idimArray=gridNodes)
+        gridUniform2 = rngArray(parVal(2,1)-parVal(2,2),parVal(2,1)+parVal(2,3),idimArray=gridNodes)
+
+        do i=1,gridNodes
+            call solverRK4(sol, t0, tf, y0, gridUniform1(i), gridUniform2(i), passos,i,irefresh=1)
+        enddo
 
     endsubroutine
 

@@ -1,7 +1,11 @@
 *.exe
+*.dat
+*.dat~
 *.mod
 *.o
 *.f90~
+*.f90.swp
 *.gnu~
+*.gnu.swp
 *.py~
 *.md~
