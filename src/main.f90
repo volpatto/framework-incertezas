@@ -79,7 +79,7 @@ call fuzzyTwoParameters(vecWCS,method=2,parGrid=10)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!! RANDOM GENERATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-call randomUniformTwoParameters(vecWCS,method=2,parGrid=499)
+call randomUniformTwoParameters(vecWCS,method=2,parGrid=4999)
 stop
 
 !call writeTrapezoidal(bleftR,tleftR,trightR,brightR,inpts=201,iname=nameR); !stop
