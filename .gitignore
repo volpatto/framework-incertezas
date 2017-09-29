@@ -1,5 +1,6 @@
 *.exe
 *.dat
+*.dat.swp
 *.dat~
 *.mod
 *.o
@@ -8,4 +9,5 @@
 *.gnu~
 *.gnu.swp
 *.py~
+*.py.swp
 *.md~
