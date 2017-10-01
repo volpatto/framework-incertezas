@@ -80,6 +80,11 @@ call fuzzyTwoParameters(vecWCS,method=2,parGrid=10)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 call randomUniformTwoParameters(vecWCS,method=2,parGrid=4999)
+vecWCS(:,3) = vecWCS(:,3)/2.d0
+call randomNormalTwoParameters(vecWCS,method=2,parGrid=4999)
+!rteste1 = rngNormalArray(tcenterC,Cminus,idimArray=5000,iname=nameC) 
+!rteste1 = rngNormalArray(tcenterR,Rminus,idimArray=5000,iname=nameR) 
+!rteste1 = rngNormalArray(0.0d0,dsqrt(0.2d0),idimArray=3000) 
 stop
 
 !call writeTrapezoidal(bleftR,tleftR,trightR,brightR,inpts=201,iname=nameR); !stop

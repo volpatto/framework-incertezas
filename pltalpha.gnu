@@ -17,7 +17,7 @@ set yrange [0:1.05]
 
 set grid
 
-filename = "caso1/alphaTriR.dat"
+filename = "caso1/alphaTriC.dat"
 linha = 1
 coluna = 2
 

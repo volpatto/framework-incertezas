@@ -37,7 +37,7 @@ clb.ax.set_title(r'$\alpha$')
 # show the figure
 plt.xlabel(r't (segundos)')
 plt.ylabel(r'$V$ (volts)')
-plt.title(r'$\alpha =$ %s' % (alpha[0]))
+plt.title(r'$\alpha$-cut = %s' % (alpha[0]))
 plt.grid(True)
 plt.ylim(ymin=0)
 #plt.legend(loc='best',borderpad=0.5)

@@ -208,7 +208,8 @@ contains
     !! @param imethod       (Optional) [in] Método de integração numérica
     subroutine randomUniformTwoParameters(parVal,parGrid,method)
 
-        use utilities, only: linspace, rngArray
+        use utilities, only: linspace
+        use random, only: rngArray
         use tIntegration
         implicit none
 
@@ -217,7 +218,7 @@ contains
         real*8, allocatable :: gridUniform1(:), gridUniform2(:)
         integer :: parGridDefault = 6, gridNodes, methodDefault = 1
         integer :: i, id, passos = 100
-        character(len=50) :: filename, fname, char_id
+        character(len=50) :: filename, fname, char_id, nameR='R', namec='C'
         real*8, allocatable :: sol(:)
         real*8 :: t0 = 0.d0, tf = 406.d0, y0 = 13.18d0
 
@@ -226,11 +227,44 @@ contains
 
         gridNodes = parGridDefault + 1
 
-        gridUniform1 = rngArray(parVal(1,1)-parVal(1,2),parVal(1,1)+parVal(1,3),idimArray=gridNodes)
-        gridUniform2 = rngArray(parVal(2,1)-parVal(2,2),parVal(2,1)+parVal(2,3),idimArray=gridNodes)
+        gridUniform1 = rngArray(parVal(1,1)-parVal(1,2),parVal(1,1)+parVal(1,3),idimArray=gridNodes,iname=nameR)
+        gridUniform2 = rngArray(parVal(2,1)-parVal(2,2),parVal(2,1)+parVal(2,3),idimArray=gridNodes,iname=nameC)
 
         do i=1,gridNodes
             call solverRK4(sol, t0, tf, y0, gridUniform1(i), gridUniform2(i), passos,i,irefresh=1)
+        enddo
+
+    endsubroutine
+
+    !> !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    !! @param parGrid       (Optional) [in] Número de intervalos para criação do grid de varredura
+    !! @param imethod       (Optional) [in] Método de integração numérica
+    subroutine randomNormalTwoParameters(parVal,parGrid,method)
+
+        use utilities, only: linspace
+        use random, only: rngNormalArray
+        use tIntegration
+        implicit none
+
+        real*8, intent(in) :: parVal(2,3)
+        integer, intent(in), optional :: parGrid, method
+        real*8, allocatable :: gridNormal1(:), gridNormal2(:)
+        integer :: parGridDefault = 6, gridNodes, methodDefault = 1
+        integer :: i, id, passos = 100
+        character(len=50) :: filename, fname, char_id, nameR='R', nameC='C'
+        real*8, allocatable :: sol(:)
+        real*8 :: t0 = 0.d0, tf = 406.d0, y0 = 13.18d0
+
+        if (present(parGrid)) parGridDefault = parGrid
+        if (present(method)) methodDefault = method
+
+        gridNodes = parGridDefault + 1
+
+        gridNormal1 = rngNormalArray(parVal(1,1),parVal(1,3),idimArray=gridNodes,iname=nameR)
+        gridNormal2 = rngNormalArray(parVal(2,1),parVal(2,3),idimArray=gridNodes,iname=nameC)
+
+        do i=1,gridNodes
+            call solverRK4(sol, t0, tf, y0, gridNormal1(i), gridNormal2(i), passos,i,irefresh=1)
         enddo
 
     endsubroutine
@@ -390,6 +424,8 @@ contains
             write(id,'(2x,2(es15.5))') xrange(i), triangularMembership(xrange(i),bleft,tcenter,bright)
         enddo
 
+        close(id)
+
     endsubroutine
 
     subroutine writeTrapezoidal(bleft,tleft,tright,bright,inpts,iname)
@@ -426,6 +462,8 @@ contains
         do i=1,size(xrange)
             write(id,'(2x,2(es15.5))') xrange(i), trapezoidalMembership(xrange(i),bleft,tleft,tright,bright)
         enddo
+
+        close(id)
 
     endsubroutine
 

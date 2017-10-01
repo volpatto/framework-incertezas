@@ -19,7 +19,7 @@ x, y = data[:,0], data[:,1]
 plt.rc('text',usetex=True)
 #plt.rc('font',family='helvica')
 plt.plot(x,y,'.',label=r'Runge-Kutta')
-plt.plot(trange,exata(trange,V0,R,C),'r',label=r'Anal\'itica')
+plt.plot(trange,exata(trange,V0,R,C),'r',label=r"Anal\'itica")
 #plt.ylim(ymax=1.1)
 plt.grid(True)
 plt.xlabel(r't (segundos)')

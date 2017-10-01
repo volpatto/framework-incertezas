@@ -61,44 +61,6 @@ module utilities
 
     endsubroutine
 
-    !> Usa a rotina geradora de número aleatório uniformes r8_uni da asa183
-    !! para criar um vetor com valores aleatorios entre minRange e maxRange.
-    !! @param minRange      Valor minimo que podera ser gerado
-    !! @param maxRange      Valor maximo que podera ser gerado
-    !! @param rArray        Vetor com entradas pseudoaleatorias
-    !! @param idimArray     (Opcional) Tamanho do vetor pseudoaleatorio
-    function rngArray(minRange, maxRange, idimArray)
-
-        use asa183, only: r8_uni
-
-        implicit none
-
-        real*8, intent(in) :: minRange, maxRange
-        real*8, allocatable :: rngArray(:)
-        !real*8, allocatable, intent(inout) :: rArray(:)
-        integer, intent(in), optional :: idimArray
-        integer :: dimArray = 10, i
-        integer :: rseed1, rseed2, n
-        !integer, parameter :: seed = 82547
-        integer, allocatable :: seed(:)
-
-        if (present(idimArray)) dimArray = idimArray
-
-        !allocate(rArray(dimArray)); rArray = 0.d0
-        allocate(rngArray(dimArray)); rngArray = 0.d0
-
-        call random_seed(size = n)
-        allocate(seed(n))
-        call random_seed(put=seed)
-        rseed1 = irand(); rseed2 = irand()
-
-        do i=1,dimArray
-            rngArray(i) = r8_uni(rseed1, rseed2)*(maxRange-minRange) + minRange
-            print*, rngArray(i)
-        enddo
-
-    endfunction
-
     function linspace(a,b,inpts)
 
         implicit none

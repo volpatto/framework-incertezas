@@ -17,5 +17,5 @@ set style data points
 set for [i=6:300:9] linetype i lc rgb "dark-orange" 
 
 ii=1
-ifi=200
+ifi=5000
 plot for [i=ii:ifi] filename.i.'.dat'  using 1:2 notitle pt 7 ps 0.5, filename2 using 2:1 title "Experimental" pt 2 ps 1.2
