@@ -1,6 +1,6 @@
 # framework-incertezas
 
-Rotinas de quantificações de incerteza utilizando Worst Case Scenario e Lógica Fuzzy aplicados a um problema de calibração 
+Rotinas de quantificações de incerteza utilizando Worst Case Scenario, Lógica Fuzzy e Probabilidade aplicados a um problema de calibração 
 de parâmetros de um circuito RC.
 
 O programa tem fins apenas didáticos.
