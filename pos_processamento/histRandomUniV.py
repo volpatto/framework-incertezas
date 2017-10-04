@@ -26,7 +26,8 @@ for i in range(1,ifi+1):
 
 Va = min(Vlast)
 Vb = max(Vlast)
-n, bins, patches = plt.hist(Vlast,50,normed=1)
+nSturgis = int(1 + 3.3*np.log10(len(Vlast)))
+n, bins, patches = plt.hist(Vlast,nSturgis,normed=1)
 v_uniform = np.vectorize(uniform)
 plt.plot(bins, v_uniform(bins,Va,Vb), 'r--', linewidth=2,label=("$\\displaystyle\\frac{1}{b-a}$ = %.2e \n a = %.2e, b = %.2e" % (1.0/(Vb-Va),Va,Vb)))
 plt.legend(loc='best',borderpad=0.5)

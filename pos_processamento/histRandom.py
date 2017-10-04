@@ -18,7 +18,8 @@ for i in range(1,ifi+1):
 	t1, V1 = data1[:,0], data1[:,1]
 	Vlast = np.append(Vlast, V1[-1])
 
-plt.hist(Vlast,50)
+nSturgis = int(1 + 3.3*np.log10(len(Vlast)))
+plt.hist(Vlast,nSturgis)
 plt.ylabel(r'Frequ\^encia')
 plt.xlabel(r'$V$ (volts)')
 plt.savefig('plotHistLast.eps')

@@ -23,20 +23,6 @@ real*4 :: rteste
 real*8, allocatable :: rteste1(:), rteste2(:)
 real*8 :: xteste(2), vecWCS(2,3)
 
-!Rminus = (R-measurementImpR)*(nominalImpR) + measurementImpR
-!Rplus = (R+measurementImpR)*(nominalImpR) + measurementImpR
-!write(*,'(2x,4(es15.5))') (R-measurementImpR), (R+measurementImpR), Rminus, Rplus; stop
-
-!Rminus = R*nominalImpR
-!Rplus = R*nominalImpR
-!call rngArray(R-Rminus, R+Rplus, rteste1, 20)
-!write(*,*)
-!call rngArray(R-Rminus, R+Rplus, rteste2, 20)
-!print*, rteste1
-!print*, "*********************"
-!print*, rteste2
-!stop
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CALIBRACAO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -57,9 +43,6 @@ Cminus = C*nominalImpC
 Cplus = C*nominalImpC
 vecWCS(1,1) = R; vecWCS(1,2) = Rminus; vecWCS(1,3) = Rplus
 vecWCS(2,1) = C; vecWCS(2,2) = Cminus; vecWCS(2,3) = Cplus
-!print*, vecWCS(2,:); stop
-!call worstCaseTwoParameters(vecWCS,method=2)
-!write(*,*) Cminus, C, Cplus
 !stop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -71,8 +54,6 @@ bleftC = C-Cminus; tcenterC = C; brightC = C+Cplus
 call writeTriangular(bleftR,tcenterR,brightR,inpts=201,iname=nameR); !stop
 call writeTriangular(bleftC,tcenterC,brightC,inpts=201,iname=nameC); !stop
 call fuzzyTwoParameters(vecWCS,method=2,parGrid=10)
-!xteste = findAlphaTri(0.9d0,bleftR,tcenterR,brightR)
-!print*, xteste(1), xteste(2); !stop
 !stop
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -82,36 +63,6 @@ call fuzzyTwoParameters(vecWCS,method=2,parGrid=10)
 call randomUniformTwoParameters(vecWCS,method=2,parGrid=4999)
 vecWCS(:,3) = vecWCS(:,3)/2.d0
 call randomNormalTwoParameters(vecWCS,method=2,parGrid=4999)
-!rteste1 = rngNormalArray(tcenterC,Cminus,idimArray=5000,iname=nameC) 
-!rteste1 = rngNormalArray(tcenterR,Rminus,idimArray=5000,iname=nameR) 
-!rteste1 = rngNormalArray(0.0d0,dsqrt(0.2d0),idimArray=3000) 
 stop
-
-!call writeTrapezoidal(bleftR,tleftR,trightR,brightR,inpts=201,iname=nameR); !stop
-
-!call rngArray(R-Rminus, R+Rplus, rteste1, 40); stop
-!write(*,*)
-!call rngArray(R-Rminus, R+Rplus, rteste2, 20)
-!stop
-
-!call readDataFile(nameData, dataSet, 2, 111)
-!call fittingModel(dataSet, R, C, adjustErr, adjustGrid, 2, imethod=1, itol=5.d-3)
-!print*, "C =", C; stop
-!call worstCaseTwoParameters(dataSet,2,R,Rminus,Rplus, &
-            !C,Cminus,Cplus,parGrid=500)
-
-!print*, Cminus, Cplus
-!call solverEuler(sol, t0, tf, y0, R, C, passos, 1)
-
-
-call readDataFile(nameData, dataSet, 2, 111)
-!print*, "C =", C
-call worstCaseTwoParametersFitting(dataSet,2,R,Rminus,Rplus, &
-            C,Cminus,Cplus,parGrid=500,method=1)
-
-call fittingModel(dataSet, R, C, adjustErr, adjustGrid, 2, imethod=2, itol=5.d-3)
-print*, Cminus, Cplus, C; !stop
-call writeTriangular(Cminus,C,Cplus,inpts=201,iname=nameC); !stop
-!call solverEuler(sol, t0, tf, y0, R, C, passos, 1)
 
 end program

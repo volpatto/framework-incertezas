@@ -6,8 +6,8 @@ set output 'alpha.eps'
 
 #set key left top
 #set key rmargin right vertical
-set ylabel "{/Symbol a}(R)"
-set xlabel 'R'
+set ylabel "{/Symbol a}(C)"
+set xlabel 'C'
 #set format x "%.3g
 #set tics font ", 10"
 
